@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">15011027_BilgiKayitUygulamasi</string>
+    <string name="giris_text">GİRİŞ</string>
+    <string name="kullanici_adi_text">Kullanıcı Adı</string>
+    <string name="sifre_text">Şifre</string>
+    <string name="yanlis_sifre_text">Kullanıcı adı ya da şifre yanlış!</string>
+    <string name="tamam_text">TAMAM</string>
+    <string name="yeni_kayit_text">YENİ KAYIT</string>
+    <string name="ad_text">Ad:</string>
+    <string name="soyad_text">Soyad:</string>
+    <string name="tc_text">T.C. Kimlik No:</string>
+    <string name="telefon_text">Telefon No:</string>
+    <string name="email_text">E-mail:</string>
+    <string name="kayit_text">KAYIT OL</string>
+
 </resources>
