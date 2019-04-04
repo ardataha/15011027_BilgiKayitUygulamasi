@@ -11,6 +11,7 @@
     <string name="tc_text">T.C. Kimlik No:</string>
     <string name="telefon_text">Telefon No:</string>
     <string name="email_text">E-mail:</string>
+    <string name="temizle_text">TEMİZLE</string>
     <string name="kayit_text">KAYIT OL</string>
 
 </resources>
