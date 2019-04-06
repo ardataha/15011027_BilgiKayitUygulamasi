@@ -24,6 +24,7 @@ public class KayitActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMG = 1;
 
     ImageView avatarImage;
+    Uri avatarUri;
     Button kayitButton, temizleButton, avatarButton;
     EditText adEditText, soyadEditText, tcEditText, telefonEditText, emailEditText;
 
@@ -71,7 +72,8 @@ public class KayitActivity extends AppCompatActivity {
                 String telNo = telefonEditText.getText().toString();
                 String email = emailEditText.getText().toString();
 
-                if ( ad.matches("") || soyad.matches("") || tcNo.matches("") || telNo.matches("") || email.matches("")) {
+                if ( ad.matches("") || soyad.matches("") || tcNo.matches("") ||
+                        telNo.matches("") || email.matches("") || (avatarImage.getVisibility()==View.GONE)) {
                     Toast.makeText(KayitActivity.this, R.string.eksik_bilgi_text, Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -81,6 +83,7 @@ public class KayitActivity extends AppCompatActivity {
                     kisi.setTcNo(tcNo);
                     kisi.setTelefonNo(telNo);
                     kisi.setEmail(email);
+                    kisi.setAvatar(avatarUri);
 
                     Intent intent = new Intent(KayitActivity.this, KisiBilgileriActivity.class);
                     intent.putExtra("Kisi", kisi);
@@ -101,6 +104,7 @@ public class KayitActivity extends AppCompatActivity {
                         .into(avatarImage);
             avatarButton.setVisibility(View.GONE);
             avatarImage.setVisibility(View.VISIBLE);
+            avatarUri = imageUri;
         }else {
             Toast.makeText(KayitActivity.this, "Bir avatar seçiniz!",Toast.LENGTH_SHORT).show();
         }

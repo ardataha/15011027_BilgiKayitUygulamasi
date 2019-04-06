@@ -2,6 +2,7 @@ package com.example.a15011027_bilgikayituygulamasi;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,16 +13,18 @@ public class Kisi implements Parcelable {
     private String tcNo;
     private String telefonNo;
     private String email;
+    private Uri avatar;
 
     public Kisi() {
     }
 
-    public Kisi(String ad, String soyad, String tcNo, String telefonNo, String email) {
+    public Kisi(String ad, String soyad, String tcNo, String telefonNo, String email, Uri avatar) {
         this.ad = ad;
         this.soyad = soyad;
         this.tcNo = tcNo;
         this.telefonNo = telefonNo;
         this.email = email;
+        this.avatar = avatar;
     }
 
     public String getAd() {
@@ -64,6 +67,14 @@ public class Kisi implements Parcelable {
         this.email = email;
     }
 
+    public Uri getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Uri avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,6 +87,7 @@ public class Kisi implements Parcelable {
         dest.writeString(this.tcNo);
         dest.writeString(this.telefonNo);
         dest.writeString(this.email);
+        dest.writeParcelable(this.avatar, flags);
     }
 
     protected Kisi(Parcel in) {
@@ -84,6 +96,7 @@ public class Kisi implements Parcelable {
         this.tcNo = in.readString();
         this.telefonNo = in.readString();
         this.email = in.readString();
+        this.avatar = in.readParcelable(Uri.class.getClassLoader());
     }
 
     public static final Creator<Kisi> CREATOR = new Creator<Kisi>() {

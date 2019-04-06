@@ -38,7 +38,7 @@ public class DerslerAdapter extends RecyclerView.Adapter<DerslerAdapter.MyViewHo
         return new MyViewHolder(itemView);
     }
 
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         Ders ders = dersler.get(position);
         holder.dersButton.setText(ders.getAd());
         holder.not.setText(ders.getNotOrtalamasi());
@@ -47,6 +47,7 @@ public class DerslerAdapter extends RecyclerView.Adapter<DerslerAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DersBilgileriActivity.class);
+                intent.putExtra("ders", dersler.get(position));
                 v.getContext().startActivity(intent);
             }
         });

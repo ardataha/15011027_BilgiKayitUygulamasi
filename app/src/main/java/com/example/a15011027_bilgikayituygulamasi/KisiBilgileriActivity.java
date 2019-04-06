@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 public class KisiBilgileriActivity extends AppCompatActivity {
@@ -41,11 +43,15 @@ public class KisiBilgileriActivity extends AppCompatActivity {
         final String tcNo = kisi.getTcNo();
         final String email = kisi.getEmail();
         final String telNo = kisi.getTelefonNo();
+        final Uri avatarUri = kisi.getAvatar();
 
         adSoyadText.setText(ad + " " + soyad);
         tcText.setText(tcNo);
         telText.setText(telNo);
         mailText.setText(email);
+        Glide.with(this)
+                .load(avatarUri)
+                    .into(avatarImage);
 
         mailButton.setOnClickListener(new View.OnClickListener() {
             @Override

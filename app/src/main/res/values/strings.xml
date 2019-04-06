@@ -19,4 +19,8 @@
     <string name="ders_listesi_text">DERS LİSTESİ</string>
     <string name="dersler_text"><u>Dersler</u></string>
     <string name="notlar_text"><u>Notlar</u></string>
+    <string name="ders_adi">Dersin Adı</string>
+    <string name="ders_veren">Dersi Veren</string>
+    <string name="ders_kredi">Dersin Kredisi</string>
+    <string name="ders_notu">Öğrencinin Notu</string>
 </resources>
