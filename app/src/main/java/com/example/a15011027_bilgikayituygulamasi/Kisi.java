@@ -1,5 +1,7 @@
 package com.example.a15011027_bilgikayituygulamasi;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -84,7 +86,7 @@ public class Kisi implements Parcelable {
         this.email = in.readString();
     }
 
-    public static final Parcelable.Creator<Kisi> CREATOR = new Parcelable.Creator<Kisi>() {
+    public static final Creator<Kisi> CREATOR = new Creator<Kisi>() {
         @Override
         public Kisi createFromParcel(Parcel source) {
             return new Kisi(source);

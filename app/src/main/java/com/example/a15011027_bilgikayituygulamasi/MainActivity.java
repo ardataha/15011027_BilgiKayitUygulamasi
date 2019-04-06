@@ -28,14 +28,19 @@ import android.widget.Toast;
                 String kullaniciAdi = kullaniciAdiEditText.getText().toString();
                 String sifre = sifreEditText.getText().toString();
 
-                if( (kullaniciAdi.equals("admin")) && (sifre.equals("password")) ) {
+                if( kullaniciAdi.matches("") ) {
+                    Toast.makeText(MainActivity.this, R.string.kullanici_adi_bos_text, Toast.LENGTH_SHORT).show();
+                }
+                else if( sifre.matches("") ) {
+                    Toast.makeText(MainActivity.this, R.string.sifre_bos_text, Toast.LENGTH_SHORT).show();
+                }
+                else if( (kullaniciAdi.equals("admin")) && (sifre.equals("password")) ) {
                     Intent intent = new Intent(MainActivity.this, KayitActivity.class);
                     startActivity(intent);
                 }
                 else {
                     Toast.makeText(MainActivity.this, R.string.yanlis_sifre_text, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }

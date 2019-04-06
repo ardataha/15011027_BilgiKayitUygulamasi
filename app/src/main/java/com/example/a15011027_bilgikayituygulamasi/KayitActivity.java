@@ -3,6 +3,7 @@ package com.example.a15011027_bilgikayituygulamasi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +14,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class KayitActivity extends AppCompatActivity {
 
-    static final int PICK_IMAGE_REQUEST = 1;
+    private static int RESULT_LOAD_IMG = 1;
 
     ImageView avatarImage;
     Button kayitButton, temizleButton, avatarButton;
@@ -37,14 +40,14 @@ public class KayitActivity extends AppCompatActivity {
         avatarButton = (Button) findViewById(R.id.avatarButton);
         kayitButton = (Button) findViewById(R.id.kayitButton);
         temizleButton = (Button) findViewById(R.id.temizleButton);
+        avatarImage = (ImageView) findViewById(R.id.avatarImage);
 
         avatarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
             }
         });
 
@@ -62,16 +65,27 @@ public class KayitActivity extends AppCompatActivity {
         kayitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Kisi kisi = new Kisi();
-                kisi.setAd(adEditText.getText().toString());
-                kisi.setSoyad(soyadEditText.getText().toString());
-                kisi.setTcNo(tcEditText.getText().toString());
-                kisi.setTelefonNo(telefonEditText.getText().toString());
-                kisi.setEmail(emailEditText.getText().toString());
+                String ad = adEditText.getText().toString();
+                String soyad = soyadEditText.getText().toString();
+                String tcNo = tcEditText.getText().toString();
+                String telNo = telefonEditText.getText().toString();
+                String email = emailEditText.getText().toString();
 
-                Intent intent = new Intent(KayitActivity.this, KisiBilgileriActivity.class);
-                intent.putExtra("Kisi", kisi);
-                startActivity(intent);
+                if ( ad.matches("") || soyad.matches("") || tcNo.matches("") || telNo.matches("") || email.matches("")) {
+                    Toast.makeText(KayitActivity.this, R.string.eksik_bilgi_text, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Kisi kisi = new Kisi();
+                    kisi.setAd(ad);
+                    kisi.setSoyad(soyad);
+                    kisi.setTcNo(tcNo);
+                    kisi.setTelefonNo(telNo);
+                    kisi.setEmail(email);
+
+                    Intent intent = new Intent(KayitActivity.this, KisiBilgileriActivity.class);
+                    intent.putExtra("Kisi", kisi);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -80,26 +94,15 @@ public class KayitActivity extends AppCompatActivity {
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
-        avatarButton = (Button) findViewById(R.id.avatarButton);
-        avatarImage = (ImageView) findViewById(R.id.avatarImage);
-
-        Log.d("RESULT CODE: ", String.valueOf(resultCode));
-
-        if (resultCode == PICK_IMAGE_REQUEST) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                avatarImage.setImageBitmap(selectedImage);
-                avatarButton.setVisibility(View.GONE);
-                avatarImage.setVisibility(View.VISIBLE);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(KayitActivity.this, "Bir hata oluştu!", Toast.LENGTH_SHORT).show();
-            }
-
+        if (resultCode == RESULT_OK) {
+            final Uri imageUri = data.getData();
+            Glide.with(this)
+                    .load(imageUri)
+                        .into(avatarImage);
+            avatarButton.setVisibility(View.GONE);
+            avatarImage.setVisibility(View.VISIBLE);
         }else {
-            Toast.makeText(KayitActivity.this, "Resim seçmediniz!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(KayitActivity.this, "Bir avatar seçiniz!",Toast.LENGTH_SHORT).show();
         }
     }
 }
